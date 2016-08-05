@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LockLevel : MonoBehaviour {
 
-	public static int levels = 20; //number of levels
+	public static int levels = 24; //number of levels
 	
 	private int worldIndex;   
 	private int levelIndex;   
