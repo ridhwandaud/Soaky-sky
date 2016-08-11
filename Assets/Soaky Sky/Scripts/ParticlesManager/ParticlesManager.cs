@@ -5,6 +5,7 @@ public class ParticlesManager : MonoBehaviour {
 
 	public GameObject particlesObj;
 	public GameObject backgroundRain;
+	public GameObject bulletSplash;
 	//public static ParticlesManager instance;
 
 	// Use this for initialization
@@ -20,8 +21,15 @@ public class ParticlesManager : MonoBehaviour {
 		Instantiate(backgroundRain,bckRainPos,Quaternion.identity);
 	}
 
-	void Update () {
-		//check if cloud dies, then instantiate water particlesObj
-		
+	public void Splash(){
+		Vector2 bulPos = GameObject.FindGameObjectWithTag("Bullet").transform.position;
+		Instantiate(bulletSplash,bulPos,Quaternion.identity);
+	}
+
+	void Update(){
+		if(GameObject.FindGameObjectWithTag("Bullet")==null && GameObject.FindGameObjectWithTag("BulletSplash")!=null){
+			Destroy(GameObject.FindGameObjectWithTag("BulletSplash"),1.5f);
+			//Debug.Log("splash exist while no there is no bullet");
+		}
 	}
 }

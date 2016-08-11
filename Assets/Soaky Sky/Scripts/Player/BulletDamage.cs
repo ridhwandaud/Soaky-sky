@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletDamage : MonoBehaviour {
 
     public int bulletDamage;
+    bool prepareSplash = true;
 	// Use this for initialization
 	void Start () {
         Destroy(gameObject, 3.5f);
@@ -26,7 +27,16 @@ public class BulletDamage : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.tag =="Thorn"){
+            BulletDieSplash();
             Destroy(gameObject);
+        }
+    }
+
+    void BulletDieSplash(){
+        if(prepareSplash){
+            Transform particMan = GameObject.FindGameObjectWithTag("ParticlesManager").transform;
+            particMan.GetComponent<ParticlesManager>().Splash();
+            prepareSplash = false;
         }
     }
 }

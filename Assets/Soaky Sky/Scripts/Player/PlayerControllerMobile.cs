@@ -15,6 +15,7 @@ public class PlayerControllerMobile : MonoBehaviour
 
     //GameObject
     public GameObject bulletPrefab;
+	GameObject bulletObj;
     public GameObject bulletSpawn;
     public float bulletSpeed;
 
