@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerMobile : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerControllerMobile : MonoBehaviour
     public float bulletSpeed;
 
 	private int pointerID = -1;
+	float doubleTapTime; 
 
 	bool canShoot = false;
 
@@ -39,6 +41,7 @@ public class PlayerControllerMobile : MonoBehaviour
 
     void Update()
     {
+		
 		MousePosition ();
 		//Debug.Log("shootCooldown "+shootCooldown);
 		/*if (shootCooldown > 0)  //
@@ -52,22 +55,49 @@ public class PlayerControllerMobile : MonoBehaviour
 
 	void MousePosition()
 	{
+		
+
 		if (Input.GetMouseButton (0) && Time.timeScale != 0) 
 		{
 			//For Block click through UI 
 			if(EventSystem.current.IsPointerOverGameObject(pointerID)){
 				return; //Not Shoot
 			}
-			rotateChild.gameObject.SetActive(true);
-			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			rotateChild.rotation = Quaternion.LookRotation (Vector3.forward,transform.position - mousePos);
+
+			if(GameObject.FindGameObjectWithTag("Bullet")==null){
+				rotateChild.gameObject.SetActive(true);
+				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				rotateChild.rotation = Quaternion.LookRotation (Vector3.forward,transform.position - mousePos);
+			}
+			else if(GameObject.FindGameObjectWithTag("Bullet")!=null)
+			{
+				rotateChild.gameObject.SetActive(false);
+			}
 		}
 		else if (Input.GetMouseButtonUp (0))  // cooldown check
 		{
+			bool doubleTapFlag = false;
+
 			//For Block click through UI 
 			if(EventSystem.current.IsPointerOverGameObject(pointerID)){
 				return; //Not Shoot
 			}
+			
+			//check double tap to restart level
+			if (Time.time < doubleTapTime + .3f)
+            {
+                doubleTapFlag = true;
+            }
+            doubleTapTime = Time.time;
+
+			if (doubleTapFlag)
+			{
+				Debug.Log("Restart level by double tapping!");
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			}
+			//----------------------
+
+			//shoot bullet
 			Shoot ();
 		}
 	}
