@@ -95,9 +95,9 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds(1.5f);
         lvlBrk.gameObject.SetActive(true);
         Debug.Log("Show level break after 1.5sec");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         lvlBrk.gameObject.SetActive(false);
-        Debug.Log("Hide level break after 1.5sec too");
+        Debug.Log("Hide level break after 2.5sec too");
         NextLevel();
     }
 }

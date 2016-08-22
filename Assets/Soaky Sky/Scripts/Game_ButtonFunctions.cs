@@ -20,10 +20,10 @@ public class Game_ButtonFunctions : MonoBehaviour {
 	}
 
 	public void Home(){
-		SceneManager.LoadScene("MainMenu");//Load StartMenu Scene
+		SceneManager.LoadScene("LevelSelection");//Load StartMenu Scene
 		//Application.LoadLevel ("MainMenu"); //Load StartMenu Scene
 		//Prevent clicking home during paused
-		ads.InterstitialAds();
+		//ads.InterstitialAds(); //ads
 		Time.timeScale = 1; //timeScale = 1  It's mean not paused.
 	}
 

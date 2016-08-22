@@ -7,6 +7,7 @@ public class BulletDamage : MonoBehaviour {
     bool prepareSplash = true;
 	// Use this for initialization
 	void Start () {
+        StartCoroutine(startDelay(3.4f));
         Destroy(gameObject, 3.5f);
 	}
 	
@@ -14,6 +15,12 @@ public class BulletDamage : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    IEnumerator startDelay(float timeDelay){
+        Debug.Log("startDelay");
+        yield return new WaitForSeconds(timeDelay);
+        BulletDieSplash();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -30,9 +37,14 @@ public class BulletDamage : MonoBehaviour {
             BulletDieSplash();
             Destroy(gameObject);
         }
+
+        if(other.gameObject.tag =="Walls"){
+            Transform particMan = GameObject.FindGameObjectWithTag("ParticlesManager").transform;
+            particMan.GetComponent<ParticlesManager>().WallRipple();
+        }
     }
 
-    void BulletDieSplash(){
+    public void BulletDieSplash(){
         if(prepareSplash){
             Transform particMan = GameObject.FindGameObjectWithTag("ParticlesManager").transform;
             particMan.GetComponent<ParticlesManager>().Splash();

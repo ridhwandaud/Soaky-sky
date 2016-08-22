@@ -3,9 +3,10 @@ using System.Collections;
 
 public class ParticlesManager : MonoBehaviour {
 
-	public GameObject particlesObj;
+	public GameObject cloudParticles;
 	public GameObject backgroundRain;
 	public GameObject bulletSplash;
+	public GameObject wallSplash;
 	//public static ParticlesManager instance;
 
 	// Use this for initialization
@@ -16,7 +17,7 @@ public class ParticlesManager : MonoBehaviour {
 	
 	public void SpawnWater(){
 		Vector2 cloudPos = GameObject.FindGameObjectWithTag("Enemy").transform.position;
-		Instantiate(particlesObj,cloudPos,Quaternion.identity);
+		Instantiate(cloudParticles,cloudPos,Quaternion.identity);
 		Vector2 bckRainPos = new Vector2(0,14.4f);
 		Instantiate(backgroundRain,bckRainPos,Quaternion.identity);
 	}
@@ -24,6 +25,11 @@ public class ParticlesManager : MonoBehaviour {
 	public void Splash(){
 		Vector2 bulPos = GameObject.FindGameObjectWithTag("Bullet").transform.position;
 		Instantiate(bulletSplash,bulPos,Quaternion.identity);
+	}
+
+	public void WallRipple(){
+		Vector2 bulPos = GameObject.FindGameObjectWithTag("Bullet").transform.position;
+		Instantiate(wallSplash,bulPos,Quaternion.identity);
 	}
 
 	void Update(){

@@ -92,8 +92,10 @@ public class PlayerControllerMobile : MonoBehaviour
 
 			if (doubleTapFlag)
 			{
-				Debug.Log("Restart level by double tapping!");
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+				Debug.Log("destroy by double tapping!");
+				//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+				GameObject.FindGameObjectWithTag("Bullet").GetComponent<BulletDamage>().BulletDieSplash();
+				Destroy(GameObject.FindGameObjectWithTag("Bullet"));
 			}
 			//----------------------
 
